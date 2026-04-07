@@ -3,29 +3,19 @@ const body = document.body;
 
 // Check for saved theme preference
 const savedTheme = localStorage.getItem('theme');
-if (savedTheme === 'light') {
-    body.classList.add('light');
+if (savedTheme === 'dark') {
+    body.classList.add('dark');
 }
 
 themeToggle.addEventListener('click', () => {
-    body.classList.toggle('light');
-    const mode = body.classList.contains('light') ? 'light' : 'dark';
+    body.classList.toggle('dark');
+    const mode = body.classList.contains('dark') ? 'dark' : 'light';
     localStorage.setItem('theme', mode);
 });
 
-// Navbar scroll effect
-window.addEventListener('scroll', () => {
-    const nav = document.getElementById('navbar');
-    if (window.scrollY > 50) {
-        nav.classList.add('scrolled');
-    } else {
-        nav.classList.remove('scrolled');
-    }
-});
-
-// Intersection Observer for scroll reveal animations
+// Intersection Observer for subtle scroll reveal
 const observerOptions = {
-    threshold: 0.2
+    threshold: 0.1
 };
 
 const observer = new IntersectionObserver((entries) => {
@@ -37,11 +27,8 @@ const observer = new IntersectionObserver((entries) => {
     });
 }, observerOptions);
 
-// Add scroll-trigger items here if needed
-document.querySelectorAll('.feature-card, .cta-box').forEach(el => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(20px)';
-    el.style.transition = 'all 0.8s ease';
+// Select elements that should have a reveal effect
+document.querySelectorAll('.fade-in, .feature-card, .cta-box').forEach(el => {
     observer.observe(el);
 });
 
